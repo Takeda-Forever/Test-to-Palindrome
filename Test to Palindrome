@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+bool isPalindrome(int num) {
+    if (num < 0) {
+        // Negative numbers cannot be palindromes
+        return false;
+    }
+
+    std::vector<int> digits;
+    int originalNum = num;
+
+    // Extract individual digits of the number and store them in the vector
+    for(; num > 0; num /= 10){
+        digits.push_back(num % 10);
+    }
+
+    int reversedNum = 0;
+    int powerOf10 = 1;
+
+    // Build the reversed number from the vector of digits
+    for (int i = digits.size() - 1; i >= 0; --i) {
+        reversedNum += digits[i] * powerOf10;
+        powerOf10 *= 10;
+    }
+
+    // Check if the reversed number is equal to the original number
+    return originalNum == reversedNum;
+}
+
+int main() {
+    int num;
+    std::cout << "Enter an integer: ";
+    std::cin >> num;
+
+    if (isPalindrome(num)) {
+        std::cout << num << ": It's a palindrome!\n";
+    } else {
+        std::cout << num << ": It's not a palindrome.\n";
+    }
+    return 0;
+}
